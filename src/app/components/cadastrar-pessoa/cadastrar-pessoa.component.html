@@ -22,5 +22,20 @@
     <label for="uf">UF:</label>
     <input type="text" id="uf" formControlName="uf" required class="form-control">
   </div>
+  
+  <h3>Contatos</h3>
+  <div class="form-group">
+    <label for="tipoContato">Tipo de Contato:</label>
+    <select id="tipoContato" formControlName="tipoContato" required class="form-control">
+      <option value="0">Telefone</option>
+      <option value="1">Celular</option>
+      <option value="2">Email</option>
+      <option value="3">URL</option>
+    </select>
+  
+    <label for="contato">Contato:</label>
+    <input type="text" id="contato" formControlName="contato" required class="form-control">
+  </div>
+
   <button class="btn btn-primary" (click)="onSubmit()">Salvar</button>
 </form>

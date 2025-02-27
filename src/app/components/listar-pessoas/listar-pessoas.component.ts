@@ -9,7 +9,7 @@ import { Pessoa } from 'src/app/models/pessoa.model';
   styleUrls: ['./listar-pessoas.component.scss']
 })
 export class ListarPessoasComponent implements OnInit {
-  pessoas: any[] = [];
+  pessoas: Pessoa[] = [];
 
   constructor(private readonly pessoaService: PessoaService, private readonly router: Router) {}
 
@@ -31,7 +31,7 @@ export class ListarPessoasComponent implements OnInit {
     });
   }
 
-  editarPessoa(id: number): void{
+  editarPessoa(id: number): void {
     this.router.navigate(['/editar-pessoa', id]);
   }
 
@@ -43,5 +43,19 @@ export class ListarPessoasComponent implements OnInit {
       });
     }
   }
-}
 
+  /**
+   * Converte o valor numérico do enum para uma string legível.
+   * @param tipo O número correspondente ao tipo de contato
+   * @returns O nome do tipo de contato
+   */
+  obterNomeTipoContato(tipo: number): string {
+    switch (tipo) {
+      case 0: return 'Telefone';
+      case 1: return 'Celular';
+      case 2: return 'Email';
+      case 3: return 'URL';
+      default: return 'Desconhecido';
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import { Component, Renderer2 } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,8 +9,8 @@ import { Component, Renderer2 } from '@angular/core';
 export class HeaderComponent {
   temaAtual: string = 'light';
 
-  constructor(private readonly renderer: Renderer2) {
-    // Inicialmente define o tema
+  constructor(private readonly renderer: Renderer2, private readonly router: Router) {
+
     this.renderer.addClass(document.body, 'light-theme');
   }
 
@@ -23,5 +24,9 @@ export class HeaderComponent {
       this.renderer.addClass(document.body, 'light-theme');
       this.temaAtual = 'light';
     }
+  }
+
+  irParaCadastro() {
+    this.router.navigate(['/cadastrar-pessoa']);
   }
 }

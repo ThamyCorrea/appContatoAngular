@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#">Minha Aplicação</a>
 
+  <button type="button" class="btn btn-outline-light" (click)="irParaCadastro()">Cadastrar</button>
+
   <button class="btn btn-outline-light ms-auto" (click)="alternarTema()">
     {{ temaAtual === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode' }}
   </button>

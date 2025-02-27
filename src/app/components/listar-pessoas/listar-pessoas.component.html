@@ -1,28 +1,31 @@
 <div class="container mt-4">
-  <h2>Listagem de Pessoas</h2>
-
+  <h2>Lista de Pessoas</h2>
   <table class="table table-striped">
-    <thead class="table-dark">
+    <thead>
       <tr>
-        <th>ID</th>
         <th>Nome</th>
-        <th>Endereço</th>
         <th>CEP</th>
+        <th>Endereço</th>
+        <th>Cidade</th>
         <th>UF</th>
-        <th>Celular</th>
-        <th>Ativo</th>
+        <th>Contatos</th>
         <th>Ações</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let pessoa of pessoas">
-        <td>{{ pessoa.id }}</td>
         <td>{{ pessoa.nome }}</td>
-        <td>{{ pessoa.endereco }}</td>
         <td>{{ pessoa.cep }}</td>
+        <td>{{ pessoa.endereco }}</td>
+        <td>{{ pessoa.cidade }}</td>
         <td>{{ pessoa.uf }}</td>
-        <td>{{ pessoa.celular }}</td>
-        <td>{{ pessoa.ativo ? 'Sim' : 'Não' }}</td>
+        <td>
+          <ul class="list-unstyled">
+            <li *ngFor="let contato of pessoa.contato">
+              <strong>{{ obterNomeTipoContato(contato.tipoContato) }}:</strong> {{ contato.contato }}
+            </li>
+          </ul>
+        </td>
         <td>
           <button class="btn btn-warning btn-sm me-2" (click)="editarPessoa(pessoa.id)">Editar</button>
           <button class="btn btn-danger btn-sm" (click)="excluirPessoa(pessoa.id)">Excluir</button>
@@ -31,4 +34,3 @@
     </tbody>
   </table>
 </div>
-

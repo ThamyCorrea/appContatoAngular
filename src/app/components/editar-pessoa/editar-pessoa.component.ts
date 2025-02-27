@@ -13,7 +13,7 @@ export class EditarPessoaComponent implements OnInit {
   pessoaForm: FormGroup;
   id: number;
 
-  constructor(    
+  constructor(
     private readonly fb: FormBuilder,
     private readonly pessoaService: PessoaService,
     private readonly route: ActivatedRoute,
@@ -41,28 +41,37 @@ export class EditarPessoaComponent implements OnInit {
   }
 
   onSubmit() {
-    
-    if (this.pessoaForm.valid) {
-      const pessoaEditada: Pessoa = { ...this.pessoaForm.value, id: this.id };
-      
-      console.log('Pessoa editada antes do envio:', pessoaEditada);
 
-      this.pessoaService.editarPessoa(pessoaEditada).subscribe({
-        next: (response) => {
-          console.log('Resposta da API:', response);
-          alert('Pessoa editada com sucesso!');
-          this.router.navigate(['/listar-pessoas']);
-        },
-        error: (error) => {
-          console.error('Erro ao editar pessoa:', error);
-          alert('Erro ao editar pessoa. Tente novamente.');
-        },
-        complete: () => {
-          console.log('Edição concluída com sucesso.');
-        }
-      });
+    if (this.pessoaForm.valid) {
+        const pessoaEditada: Pessoa = { ...this.pessoaForm.value, id: this.id };
+
+        this.pessoaService.editarPessoa(pessoaEditada).subscribe({
+            next: (response) => {
+                console.log('Resposta da API:', response);
+                alert('Pessoa editada com sucesso!');
+                this.router.navigate(['/listar-pessoas']);
+            },
+            error: (error) => {
+                console.error('Erro ao editar pessoa:', error);
+                alert('Erro ao editar pessoa. Tente novamente.');
+            },
+            complete: () => {
+                console.log('Edição concluída com sucesso.');
+            }
+        });
+    } else {
+        console.warn('Formulário inválido! Verifique os campos.');
+        console.log('Estado do formulário:', this.pessoaForm.valid);
+        console.log('Valores do formulário:', this.pessoaForm.value);
+
+        
+        Object.keys(this.pessoaForm.controls).forEach((campo) => {
+            const controle = this.pessoaForm.get(campo);
+            console.log(`Campo: ${campo}, Valor: ${controle?.value}, Valido: ${controle?.valid}, Erros: ${JSON.stringify(controle?.errors)}`);
+        });
     }
-  }
+}
+
 
   buscarEnderecoPorCep() {
     const cep = this.pessoaForm.get('cep')?.value;

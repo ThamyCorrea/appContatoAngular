@@ -5,6 +5,12 @@ export interface Pessoa {
   endereco: string;
   cidade: string;
   uf: string;
+  contato: Contato[];
 
   
+}
+
+export interface Contato {
+  tipoContato: number;
+  contato: string;
 }
