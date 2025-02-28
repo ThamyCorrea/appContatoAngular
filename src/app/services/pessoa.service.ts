@@ -23,8 +23,8 @@ export class PessoaService {
     return this.http.get<Pessoa[]>(this.apiUrl);
   }
 
-  obterPessoaPorId(id: number): Observable<Pessoa> {
-    return this.http.get<Pessoa>(`${this.apiUrl}/${id}`);
+  obterPessoaPorId(pessoaId: number): Observable<Pessoa> {
+    return this.http.get<Pessoa>(`${this.apiUrl}/${pessoaId}`);
   }
 
   buscarEnderecoPorCep(cep: string): Observable<any> {

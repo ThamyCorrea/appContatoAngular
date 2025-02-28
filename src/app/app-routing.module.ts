@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CadastrarPessoaComponent } from './components/cadastrar-pessoa/cadastrar-pessoa.component';
-import { EditarPessoaComponent } from './components/editar-pessoa/editar-pessoa.component';
-import { ListarPessoasComponent } from './components/listar-pessoas/listar-pessoas.component';
+import { CadastrarPessoaComponent } from './components/pessoa/cadastrar-pessoa/cadastrar-pessoa.component';
+import { EditarPessoaComponent } from './components/pessoa/editar-pessoa/editar-pessoa.component';
+import { ListarPessoasComponent } from './components/pessoa/listar-pessoas/listar-pessoas.component';
 
 const routes: Routes = [
   { path: 'cadastrar-pessoa', component: CadastrarPessoaComponent },

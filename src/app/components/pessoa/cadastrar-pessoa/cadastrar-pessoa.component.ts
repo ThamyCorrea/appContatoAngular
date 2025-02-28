@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Pessoa } from 'src/app/models/pessoa.model';
 import { PessoaService } from 'src/app/services/pessoa.service';
 import { Router } from '@angular/router';
@@ -26,22 +26,7 @@ export class CadastrarPessoaComponent {
       contatos: this.fb.array([]) 
     });
   }
-
-  get contatos() {
-    return this.pessoaForm.get('contatos') as FormArray;
-  }
-
-  adicionarContato(tipo: number, contato: string) {
-    this.contatos.push(this.fb.group({
-      tipoContato: [tipo, Validators.required],
-      contato: [contato, Validators.required]
-    }));
-  }
-
-  removerContato(index: number) {
-    this.contatos.removeAt(index);
-  }
-
+  
   onSubmit() {
     if (this.pessoaForm.valid) {
       const novaPessoa: Pessoa = this.pessoaForm.value;

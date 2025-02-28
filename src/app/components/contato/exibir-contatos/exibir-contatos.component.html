@@ -1,0 +1,20 @@
+<div *ngIf="contatos.length > 0">
+  <h4>Contatos:</h4>
+  <table class="table table-striped">
+      <thead>
+          <tr>
+              <th>Tipo</th>
+              <th>Contato</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let contato of contatos">
+              <td>{{ contato.tipoContato }}</td>
+              <td>{{ contato.contato }}</td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+<div *ngIf="contatos.length === 0">
+  <p>Nenhum contato encontrado.</p>
+</div>
