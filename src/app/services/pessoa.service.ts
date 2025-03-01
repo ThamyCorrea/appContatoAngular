@@ -19,12 +19,16 @@ export class PessoaService {
     return this.http.put<Pessoa>(`${this.apiUrl}/${pessoa.id}`, pessoa);
   }
 
-  getPessoas(): Observable<Pessoa[]> {
+  listarPessoas(): Observable<Pessoa[]> {
     return this.http.get<Pessoa[]>(this.apiUrl);
   }
 
   obterPessoaPorId(pessoaId: number): Observable<Pessoa> {
     return this.http.get<Pessoa>(`${this.apiUrl}/${pessoaId}`);
+  }
+
+  cadastrarContato(contato: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/${contato.pessoaId}/contatos`, contato);
   }
 
   buscarEnderecoPorCep(cep: string): Observable<any> {

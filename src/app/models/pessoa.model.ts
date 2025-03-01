@@ -1,3 +1,5 @@
+import { Contato } from './contato.model';
+
 export interface Pessoa {
   id: number;
   nome: string;
@@ -5,6 +7,6 @@ export interface Pessoa {
   endereco: string;
   cidade: string;
   uf: string;
-  contatos?: any[]; 
+  contatos?: Contato[]; 
   showContatos?: boolean;
 }

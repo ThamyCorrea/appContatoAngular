@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PessoaService } from '../../../services/pessoa.service';
 import { Pessoa } from 'src/app/models/pessoa.model';
-import * as bootstrap from 'bootstrap'; 
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-listar-pessoas',
@@ -20,10 +20,10 @@ export class ListarPessoasComponent implements OnInit {
   }
 
   carregarPessoas() {
-    this.pessoaService.getPessoas().subscribe({
+    this.pessoaService.listarPessoas().subscribe({
         next: (data: Pessoa[]) => {
             this.pessoas = data;
-            this.pessoas.forEach(pessoa => pessoa.showContatos = false); 
+            this.pessoas.forEach(pessoa => pessoa.showContatos = false);
         },
         error: (error) => {
             console.error('Erro ao buscar pessoas:', error);

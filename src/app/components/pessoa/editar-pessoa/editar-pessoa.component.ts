@@ -49,7 +49,7 @@ export class EditarPessoaComponent implements OnInit {
             next: (response) => {
                 console.log('Resposta da API:', response);
                 alert('Pessoa editada com sucesso!');
-                this.router.navigate(['/listar-pessoas']);
+                this.router.navigate(['/editar-contato', this.id]);
             },
             error: (error) => {
                 console.error('Erro ao editar pessoa:', error);
@@ -64,7 +64,7 @@ export class EditarPessoaComponent implements OnInit {
         console.log('Estado do formulário:', this.pessoaForm.valid);
         console.log('Valores do formulário:', this.pessoaForm.value);
 
-        
+
         Object.keys(this.pessoaForm.controls).forEach((campo) => {
             const controle = this.pessoaForm.get(campo);
             console.log(`Campo: ${campo}, Valor: ${controle?.value}, Valido: ${controle?.valid}, Erros: ${JSON.stringify(controle?.errors)}`);

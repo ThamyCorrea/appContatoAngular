@@ -3,6 +3,7 @@
   <table class="table table-striped">
       <thead>
           <tr>
+              <th>ID</th>
               <th>Nome</th>
               <th>CEP</th>
               <th>Endereço</th>
@@ -14,6 +15,7 @@
       </thead>
       <tbody>
           <tr *ngFor="let pessoa of pessoas">
+              <td>{{ pessoa.id }}</td>
               <td>{{ pessoa.nome }}</td>
               <td>{{ pessoa.cep }}</td>
               <td>{{ pessoa.endereco }}</td>

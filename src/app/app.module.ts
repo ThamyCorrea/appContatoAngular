@@ -9,7 +9,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ExibirContatosComponent } from './components/contato/exibir-contatos/exibir-contatos.component';
-
+import { CadastrarContatoComponent } from './components/contato/cadastrar-contato/cadastrar-contato.component';
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +18,8 @@ import { ExibirContatosComponent } from './components/contato/exibir-contatos/ex
     EditarPessoaComponent,
     HeaderComponent,
     ListarPessoasComponent,
-    ExibirContatosComponent
+    ExibirContatosComponent,
+    CadastrarContatoComponent
 
 
   ],
@@ -25,6 +27,7 @@ import { ExibirContatosComponent } from './components/contato/exibir-contatos/ex
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    CommonModule,
     HttpClientModule
   ],
   providers: [],

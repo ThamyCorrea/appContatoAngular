@@ -1,0 +1,30 @@
+<div class="container">
+  <h2>Cadastrar Contatos</h2>
+  <form [formGroup]="contatoForm" (ngSubmit)="onSubmit()">
+
+    <!-- 🔥 Select para escolher a pessoa -->
+    <label for="pessoaId">Selecione a Pessoa:</label>
+<select id="pessoaId" formControlName="pessoaId" required>
+  <option *ngFor="let pessoa of pessoas" [value]="pessoa.id">
+    {{ pessoa.nome }}
+  </option>
+</select>
+
+    <div formArrayName="contatos">
+      <div *ngFor="let contatoCtrl of contatosArray.controls; let i = index" [formGroupName]="i" class="contact-entry">
+        <label for="tipoContato">Tipo de Contato:</label>
+        <select formControlName="tipoContato" id="tipoContato" required>
+          <option *ngFor="let tipo of tiposContato" [value]="tipo.id">{{ tipo.nome }}</option>
+        </select>
+
+        <label for="contato">Contato:</label>
+        <input type="text" formControlName="contato" id="contato" required />
+
+        <button type="button" (click)="removerContato(i)">Remover</button>
+      </div>
+    </div>
+
+    <button type="button" (click)="adicionarContato()">Adicionar Contato</button>
+    <button type="submit" [disabled]="contatoForm.invalid">Cadastrar Contato(s)</button>
+  </form>
+</div>

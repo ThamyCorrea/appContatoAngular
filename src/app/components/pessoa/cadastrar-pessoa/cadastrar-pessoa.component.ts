@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Pessoa } from 'src/app/models/pessoa.model';
 import { PessoaService } from 'src/app/services/pessoa.service';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-cadastrar-pessoa',
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class CadastrarPessoaComponent {
   pessoaForm: FormGroup;
+  pessoaIdCadastrada!: number;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -22,40 +23,25 @@ export class CadastrarPessoaComponent {
       cep: ['', [Validators.required, Validators.pattern(/^\d{5}-\d{3}$/)]],
       endereco: ['', Validators.required],
       cidade: ['', Validators.required],
-      uf: ['', Validators.required],
-      contatos: this.fb.array([]) 
+      uf: ['', Validators.required]
     });
   }
-  
+
   onSubmit() {
     if (this.pessoaForm.valid) {
-      const novaPessoa: Pessoa = this.pessoaForm.value;
-      this.pessoaService.cadastrarPessoa(novaPessoa).subscribe({
+      this.pessoaService.cadastrarPessoa(this.pessoaForm.value).subscribe({
         next: (response) => {
-          console.log('Pessoa cadastrada:', response);
-          alert('Cadastro realizado com sucesso!');
-          this.router.navigate(['/listar-pessoas']);
+          console.log('Pessoa cadastrada com sucesso:', response);
+          alert('Pessoa cadastrada com sucesso!');
+
+          // ✅ Armazena o ID da pessoa recém-cadastrada
+          this.pessoaIdCadastrada = response.id;
+
+          // ✅ Redireciona para a tela de cadastrar contato sem alterar a URL
+          this.router.navigate(['/cadastrar-contato']);
         },
         error: (err) => {
-          console.error('Erro ao cadastrar:', err);
-        },
-        complete: () => {
-          console.log('Requisição finalizada.');
-        }
-      });
-    }
-  }
-
-  buscarEnderecoPorCep() {
-    const cep = this.pessoaForm.get('cep')?.value;
-    if (cep) {
-      this.pessoaService.buscarEnderecoPorCep(cep).subscribe(data => {
-        if (data) {
-          this.pessoaForm.patchValue({
-            endereco: data.logradouro,
-            cidade: data.localidade,
-            uf: data.uf,
-          });
+          console.error('Erro ao cadastrar pessoa:', err);
         }
       });
     }
