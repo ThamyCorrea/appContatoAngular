@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ExibirContatosComponent } from './components/contato/exibir-contatos/exibir-contatos.component';
 import { CadastrarContatoComponent } from './components/contato/cadastrar-contato/cadastrar-contato.component';
 import { CommonModule } from '@angular/common';
+import { EditarContatoComponent } from './components/contato/editar-contato/editar-contato.component';
+import { ListarContatosComponent } from './components/contato/listar-contatos/listar-contatos.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +21,9 @@ import { CommonModule } from '@angular/common';
     HeaderComponent,
     ListarPessoasComponent,
     ExibirContatosComponent,
-    CadastrarContatoComponent
+    CadastrarContatoComponent,
+    EditarContatoComponent,
+    ListarContatosComponent
 
 
   ],

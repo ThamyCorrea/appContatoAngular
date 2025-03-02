@@ -14,4 +14,20 @@ export class ContatoService {
   criarContato(contatos: Contato[]): Observable<Contato[]> {
     return this.http.post<Contato[]>(this.apiUrl, contatos);
   }
+
+  buscarContatosPorPessoaId(pessoaId: number): Observable<Contato[]> {
+    return this.http.get<Contato[]>(`${this.apiUrl}/pessoa/${pessoaId}`);
+  }
+
+  buscarContatoPorId(id: number): Observable<Contato> {
+    return this.http.get<Contato>(`${this.apiUrl}/${id}`);
+  }
+
+  atualizarContato(id: number, contato: Contato): Observable<Contato> {
+    return this.http.put<Contato>(`${this.apiUrl}/${id}`, contato);
+  }
+
+  excluirContato(contatoId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${contatoId}`);
+  }
 }

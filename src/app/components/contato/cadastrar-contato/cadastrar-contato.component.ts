@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ContatoService } from 'src/app/services/contato.service';
-import { PessoaService } from 'src/app/services/pessoa.service'; // Novo serviço para listar pessoas
-import { Pessoa } from 'src/app/models/pessoa.model'; // Criar modelo se necessário
+import { PessoaService } from 'src/app/services/pessoa.service';
+import { Pessoa } from 'src/app/models/pessoa.model';
 
 @Component({
   selector: 'app-cadastrar-contato',
@@ -12,7 +12,7 @@ import { Pessoa } from 'src/app/models/pessoa.model'; // Criar modelo se necess�
 })
 export class CadastrarContatoComponent implements OnInit {
   contatoForm!: FormGroup;
-  pessoas: Pessoa[] = []; // Lista de pessoas cadastradas
+  pessoas: Pessoa[] = [];
 
   tiposContato = [
     { id: 0, nome: 'Telefone' },
@@ -30,20 +30,20 @@ export class CadastrarContatoComponent implements OnInit {
 
   ngOnInit(): void {
     this.contatoForm = this.formBuilder.group({
-      pessoaId: ['', Validators.required], // Select de pessoas
+      pessoaId: ['', Validators.required],
       contatos: this.formBuilder.array([])
     });
 
-    this.carregarPessoas(); // Busca as pessoas cadastradas no backend
+    this.carregarPessoas();
     this.adicionarContato();
   }
 
-  // 🔥 Getter para acessar o FormArray no HTML
+
   get contatosArray(): FormArray {
     return this.contatoForm.get('contatos') as FormArray;
   }
 
-  // 🔥 Busca as pessoas no backend
+
   carregarPessoas(): void {
     this.pessoaService.listarPessoas().subscribe({
       next: (pessoas) => {
@@ -55,7 +55,7 @@ export class CadastrarContatoComponent implements OnInit {
     });
   }
 
-  // 🔥 Adiciona um novo contato ao formulário
+
   adicionarContato(): void {
     const contatoGroup = this.formBuilder.group({
       tipoContato: ['', Validators.required],
@@ -65,19 +65,19 @@ export class CadastrarContatoComponent implements OnInit {
     this.contatosArray.push(contatoGroup);
   }
 
-  // 🔥 Remove um contato do formulário
+
   removerContato(index: number): void {
     this.contatosArray.removeAt(index);
   }
 
   onSubmit(): void {
     if (this.contatoForm.valid) {
-      const pessoaId = Number(this.contatoForm.value.pessoaId); // Garante que é um número
+      const pessoaId = Number(this.contatoForm.value.pessoaId);
 
       const contatos = this.contatoForm.value.contatos.map((contato: any) => ({
         tipoContato: contato.tipoContato,
         contato: contato.contato,
-        pessoa: { id: pessoaId } // Agora o ID está dentro do objeto 'pessoa'
+        pessoa: { id: pessoaId }
       }));
 
       console.log('Pessoa ID enviado:', pessoaId);

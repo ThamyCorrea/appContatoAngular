@@ -1,0 +1,39 @@
+<div class="container">
+  <h2>Editar Contato</h2>
+  <form [formGroup]="contatoForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+          <label for="tipoContato">Tipo de Contato</label>
+          <select id="tipoContato" formControlName="tipoContato" class="form-control">
+              <option value="" disabled selected>Selecione o tipo de contato</option>
+              <option value="TELEFONE">Telefone</option>
+              <option value="CELULAR">Celular</option>
+              <option value="EMAIL">Email</option>
+              <option value="URL">URL</option>
+          </select>
+          <div *ngIf="contatoForm.get('tipoContato')?.invalid && (contatoForm.get('tipoContato')?.touched || contatoForm.get('tipoContato')?.dirty)">
+              <small class="text-danger">Tipo de contato é obrigatório.</small>
+          </div>
+      </div>
+
+      <div class="form-group">
+          <label for="contato">Contato</label>
+          <input id="contato" type="text" class="form-control" formControlName="contato" />
+          <div *ngIf="contatoForm.get('contato')?.invalid && (contatoForm.get('contato')?.touched || contatoForm.get('contato')?.dirty)">
+              <small class="text-danger">Contato é obrigatório.</small>
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label for="pessoa">Pessoa</label>
+        <select id="pessoa" formGroupName="pessoa" formControlName="id" class="form-control">
+            <option value="" disabled selected>Selecione uma pessoa</option>
+            <option *ngFor="let pessoa of pessoas" [value]="pessoa.id">{{ pessoa.nome }}</option>
+        </select>
+        <div *ngIf="contatoForm.get('pessoa.id')?.invalid && (contatoForm.get('pessoa.id')?.touched || contatoForm.get('pessoa.id')?.dirty)">
+            <small class="text-danger">Pessoa é obrigatória.</small>
+        </div>
+    </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="contatoForm.invalid">Salvar</button>
+  </form>
+</div>

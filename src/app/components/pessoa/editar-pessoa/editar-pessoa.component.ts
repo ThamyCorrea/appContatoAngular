@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Pessoa } from 'src/app/models/pessoa.model';
 import { PessoaService } from 'src/app/services/pessoa.service';
+import { ContatoService } from 'src/app/services/contato.service';
 
 @Component({
   selector: 'app-editar-pessoa',
@@ -13,9 +14,11 @@ export class EditarPessoaComponent implements OnInit {
   pessoaForm: FormGroup;
   id: number;
 
+
   constructor(
     private readonly fb: FormBuilder,
     private readonly pessoaService: PessoaService,
+    private readonly contatoService: ContatoService,
     private readonly route: ActivatedRoute,
     private readonly router: Router
   ) {
@@ -40,37 +43,25 @@ export class EditarPessoaComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-
+  onSubmit(): void {
     if (this.pessoaForm.valid) {
-        const pessoaEditada: Pessoa = { ...this.pessoaForm.value, id: this.id };
+      const pessoaEditada: Pessoa = { ...this.pessoaForm.value, id: this.id };
 
-        this.pessoaService.editarPessoa(pessoaEditada).subscribe({
-            next: (response) => {
-                console.log('Resposta da API:', response);
-                alert('Pessoa editada com sucesso!');
-                this.router.navigate(['/editar-contato', this.id]);
-            },
-            error: (error) => {
-                console.error('Erro ao editar pessoa:', error);
-                alert('Erro ao editar pessoa. Tente novamente.');
-            },
-            complete: () => {
-                console.log('Edição concluída com sucesso.');
-            }
-        });
+      this.pessoaService.editarPessoa(pessoaEditada).subscribe({
+        next: () => {
+          alert('Pessoa editada com sucesso!');
+          this.router.navigate([`/contato/pessoa`, this.id]);
+        },
+        error: (error) => {
+          console.error('Erro ao editar pessoa:', error);
+          alert('Erro ao editar pessoa. Tente novamente.');
+        }
+      });
     } else {
-        console.warn('Formulário inválido! Verifique os campos.');
-        console.log('Estado do formulário:', this.pessoaForm.valid);
-        console.log('Valores do formulário:', this.pessoaForm.value);
-
-
-        Object.keys(this.pessoaForm.controls).forEach((campo) => {
-            const controle = this.pessoaForm.get(campo);
-            console.log(`Campo: ${campo}, Valor: ${controle?.value}, Valido: ${controle?.valid}, Erros: ${JSON.stringify(controle?.errors)}`);
-        });
+      console.warn('Formulário inválido! Verifique os campos.');
     }
-}
+  }
+
 
 
   buscarEnderecoPorCep() {

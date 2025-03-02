@@ -32,12 +32,11 @@ export class CadastrarPessoaComponent {
       this.pessoaService.cadastrarPessoa(this.pessoaForm.value).subscribe({
         next: (response) => {
           console.log('Pessoa cadastrada com sucesso:', response);
+
           alert('Pessoa cadastrada com sucesso!');
 
-          // ✅ Armazena o ID da pessoa recém-cadastrada
           this.pessoaIdCadastrada = response.id;
 
-          // ✅ Redireciona para a tela de cadastrar contato sem alterar a URL
           this.router.navigate(['/cadastrar-contato']);
         },
         error: (err) => {
@@ -46,4 +45,20 @@ export class CadastrarPessoaComponent {
       });
     }
   }
+
+
+buscarEnderecoPorCep() {
+  const cep = this.pessoaForm.get('cep')?.value;
+  if (cep) {
+    this.pessoaService.buscarEnderecoPorCep(cep).subscribe(data => {
+      if (data) {
+        this.pessoaForm.patchValue({
+          endereco: data.logradouro,
+          cidade: data.localidade,
+          uf: data.uf
+        });
+      }
+    });
+  }
+}
 }

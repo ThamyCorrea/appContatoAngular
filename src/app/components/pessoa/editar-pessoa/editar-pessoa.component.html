@@ -5,9 +5,9 @@
   </div>
   <div class="mb-3">
     <label for="cep" class="form-label">CEP</label>
-    <input type="text" id="cep" formControlName="cep" class="form-control" placeholder="12345-678">
+    <input type="text" id="cep" formControlName="cep" class="form-control" placeholder="12345-678" (blur)="buscarEnderecoPorCep()">
     <div *ngIf="pessoaForm.get('cep')?.invalid && pessoaForm.get('cep')?.touched" class="text-danger">
-      CEP inválido! O formato correto é 12345-678.
+        CEP inválido! O formato correto é 12345-678.
     </div>
   </div>
   <div class="form-group">
