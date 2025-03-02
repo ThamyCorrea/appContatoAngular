@@ -1,13 +1,19 @@
 <form [formGroup]="pessoaForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="nome">Nome:</label>
-    <input type="text" id="nome" formControlName="nome" required class="form-control">
+    <input type="text" id="nome" formControlName="nome" required class="form-control" placeholder="Nome Completo">
+    <div *ngIf="pessoaForm.get('nome')?.invalid && pessoaForm.get('nome')?.touched" class="erro">
+      <span *ngIf="pessoaForm.get('nome')?.errors?.['required']">O nome é obrigatório</span>
+      <span *ngIf="pessoaForm.get('nome')?.errors?.['minlength']">O nome deve ter no mínimo 3 caracteres</span>
+      <span *ngIf="pessoaForm.get('nome')?.errors?.['maxlength']">O nome deve ter no máximo 50 caracteres</span>
+    </div>
   </div>
   <div class="mb-3">
     <label for="cep" class="form-label">CEP</label>
-    <input type="text" id="cep" formControlName="cep" class="form-control" placeholder="12345-678" (blur)="buscarEnderecoPorCep()">
+    <input type="text" id="cep" formControlName="cep" class="form-control" placeholder="12345-678"
+      (blur)="buscarEnderecoPorCep()">
     <div *ngIf="pessoaForm.get('cep')?.invalid && pessoaForm.get('cep')?.touched" class="text-danger">
-        CEP inválido! O formato correto é 12345-678.
+      CEP inválido! O formato correto é 12345-678
     </div>
   </div>
   <div class="form-group">

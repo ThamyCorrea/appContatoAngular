@@ -2,34 +2,34 @@
   <h2>Cadastrar Contatos</h2>
   <form [formGroup]="contatoForm" (ngSubmit)="onSubmit()">
 
-      <div class="form-group">
-          <label for="pessoaId">Selecione a Pessoa:</label>
-          <select id="pessoaId" formControlName="pessoaId" required class="form-control">
-              <option *ngFor="let pessoa of pessoas" [value]="pessoa.id">
-                  {{ pessoa.nome }}
-              </option>
+    <div class="form-group">
+      <label for="pessoaId">Selecione a Pessoa:</label>
+      <select id="pessoaId" formControlName="pessoaId" required class="form-control">
+        <option *ngFor="let pessoa of pessoas" [value]="pessoa.id">
+          {{ pessoa.nome }}
+        </option>
+      </select>
+    </div>
+
+    <div formArrayName="contatos">
+      <div *ngFor="let contatoCtrl of contatosArray.controls; let i = index" [formGroupName]="i" class="contact-entry">
+        <div class="form-group">
+          <label for="tipoContato">Tipo de Contato:</label>
+          <select formControlName="tipoContato" id="tipoContato" required class="form-control">
+            <option *ngFor="let tipo of tiposContato" [value]="tipo.id">{{ tipo.nome }}</option>
           </select>
+        </div>
+
+        <div class="form-group">
+          <label for="contato">Contato:</label>
+          <input type="text" formControlName="contato" id="contato" required class="form-control" />
+        </div>
+
+        <button type="button" (click)="removerContato(i)" class="btn btn-danger btn-sm">Remover</button>
       </div>
+    </div>
 
-      <div formArrayName="contatos">
-          <div *ngFor="let contatoCtrl of contatosArray.controls; let i = index" [formGroupName]="i" class="contact-entry">
-              <div class="form-group">
-                  <label for="tipoContato">Tipo de Contato:</label>
-                  <select formControlName="tipoContato" id="tipoContato" required class="form-control">
-                      <option *ngFor="let tipo of tiposContato" [value]="tipo.id">{{ tipo.nome }}</option>
-                  </select>
-              </div>
-
-              <div class="form-group">
-                  <label for="contato">Contato:</label>
-                  <input type="text" formControlName="contato" id="contato" required class="form-control" />
-              </div>
-
-              <button type="button" (click)="removerContato(i)" class="btn btn-danger btn-sm">Remover</button>
-          </div>
-      </div>
-
-      <button type="button" (click)="adicionarContato()" class="btn btn-success">Adicionar Contato</button>
-      <button type="submit" [disabled]="contatoForm.invalid" class="btn btn-primary">Cadastrar Contato(s)</button>
+    <button type="button" (click)="adicionarContato()" class="btn btn-success">Adicionar Contato</button>
+    <button type="submit" [disabled]="contatoForm.invalid" class="btn btn-primary">Cadastrar Contato(s)</button>
   </form>
 </div>

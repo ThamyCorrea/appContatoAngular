@@ -6,6 +6,7 @@ import { Pessoa } from '../models/pessoa.model';
 @Injectable({
   providedIn: 'root'
 })
+
 export class PessoaService {
   private readonly apiUrl = 'http://localhost:8080/api/pessoas';
 

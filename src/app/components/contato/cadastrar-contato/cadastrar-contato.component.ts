@@ -38,11 +38,9 @@ export class CadastrarContatoComponent implements OnInit {
     this.adicionarContato();
   }
 
-
   get contatosArray(): FormArray {
     return this.contatoForm.get('contatos') as FormArray;
   }
-
 
   carregarPessoas(): void {
     this.pessoaService.listarPessoas().subscribe({
@@ -55,7 +53,6 @@ export class CadastrarContatoComponent implements OnInit {
     });
   }
 
-
   adicionarContato(): void {
     const contatoGroup = this.formBuilder.group({
       tipoContato: ['', Validators.required],
@@ -64,7 +61,6 @@ export class CadastrarContatoComponent implements OnInit {
 
     this.contatosArray.push(contatoGroup);
   }
-
 
   removerContato(index: number): void {
     this.contatosArray.removeAt(index);
@@ -95,4 +91,5 @@ export class CadastrarContatoComponent implements OnInit {
     } else {
       console.log('Formulário inválido:', this.contatoForm.value);
     }
-  }}
+  }
+}

@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PessoaService } from 'src/app/services/pessoa.service';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-cadastrar-pessoa',
   templateUrl: './cadastrar-pessoa.component.html',
@@ -17,13 +16,14 @@ export class CadastrarPessoaComponent {
     private readonly fb: FormBuilder,
     private readonly pessoaService: PessoaService,
     private readonly router: Router
-  ) {
+  )
+  {
     this.pessoaForm = this.fb.group({
-      nome: ['', Validators.required],
+      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       cep: ['', [Validators.required, Validators.pattern(/^\d{5}-\d{3}$/)]],
-      endereco: ['', Validators.required],
-      cidade: ['', Validators.required],
-      uf: ['', Validators.required]
+      endereco: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(150)]],
+      cidade: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      uf: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]]
     });
   }
 
@@ -46,19 +46,22 @@ export class CadastrarPessoaComponent {
     }
   }
 
-
-buscarEnderecoPorCep() {
-  const cep = this.pessoaForm.get('cep')?.value;
-  if (cep) {
-    this.pessoaService.buscarEnderecoPorCep(cep).subscribe(data => {
-      if (data) {
-        this.pessoaForm.patchValue({
-          endereco: data.logradouro,
-          cidade: data.localidade,
-          uf: data.uf
-        });
-      }
-    });
+  buscarEnderecoPorCep() {
+    const cep = this.pessoaForm.get('cep')?.value;
+    if (cep) {
+      this.pessoaService.buscarEnderecoPorCep(cep).subscribe(data => {
+        if (data) {
+          this.pessoaForm.patchValue({
+            endereco: data.logradouro,
+            cidade: data.localidade,
+            uf: data.uf
+          });
+        }
+      });
+    }
   }
-}
+  
+  cancelar(): void {
+    this.router.navigate(['/listar-pessoas']);
+  }
 }

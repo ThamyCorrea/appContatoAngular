@@ -13,6 +13,7 @@ import { CadastrarContatoComponent } from './components/contato/cadastrar-contat
 import { CommonModule } from '@angular/common';
 import { EditarContatoComponent } from './components/contato/editar-contato/editar-contato.component';
 import { ListarContatosComponent } from './components/contato/listar-contatos/listar-contatos.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,8 +25,6 @@ import { ListarContatosComponent } from './components/contato/listar-contatos/li
     CadastrarContatoComponent,
     EditarContatoComponent,
     ListarContatosComponent
-
-
   ],
   imports: [
     BrowserModule,

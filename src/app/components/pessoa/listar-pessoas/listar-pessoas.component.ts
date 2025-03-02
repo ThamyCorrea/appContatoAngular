@@ -32,7 +32,7 @@ export class ListarPessoasComponent implements OnInit {
             console.log('Requisição concluída com sucesso!');
         }
     });
-}
+  }
 
   editarPessoa(id: number): void {
     this.router.navigate(['/editar-pessoa', id]);
@@ -72,6 +72,6 @@ abrirModalContatos(pessoaId: number): void {
       modal.show();
   } else {
       console.error('Modal não encontrado!');
+    }
   }
-}
 }

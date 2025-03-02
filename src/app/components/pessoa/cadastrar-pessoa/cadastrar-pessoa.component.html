@@ -1,33 +1,52 @@
 <form [formGroup]="pessoaForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="nome">Nome:</label>
-    <input type="text" id="nome" formControlName="nome" required class="form-control">
+    <input type="text" id="nome" formControlName="nome" required class="form-control" placeholder="Nome Completo">
+    <div *ngIf="pessoaForm.get('nome')?.invalid && pessoaForm.get('nome')?.touched" class="erro">
+      <span *ngIf="pessoaForm.get('nome')?.errors?.['required']">O nome é obrigatório</span>
+      <span *ngIf="pessoaForm.get('nome')?.errors?.['minlength']">O nome deve ter no mínimo 3 caracteres</span>
+      <span *ngIf="pessoaForm.get('nome')?.errors?.['maxlength']">O nome deve ter no máximo 50 caracteres</span>
+    </div>
   </div>
-
   <div class="mb-3">
     <label for="cep" class="form-label">CEP</label>
-    <input type="text" id="cep" formControlName="cep" class="form-control" placeholder="12345-678" (blur)="buscarEnderecoPorCep()">
+    <input type="text" id="cep" formControlName="cep" class="form-control" placeholder="12345-678"
+      (blur)="buscarEnderecoPorCep()">
     <div *ngIf="pessoaForm.get('cep')?.invalid && pessoaForm.get('cep')?.touched" class="text-danger">
       CEP inválido! O formato correto é 12345-678.
     </div>
   </div>
-
   <div class="form-group">
     <label for="endereco">Endereço:</label>
     <input type="text" id="endereco" formControlName="endereco" required class="form-control">
+    <div *ngIf="pessoaForm.get('endereco')?.invalid && pessoaForm.get('endereco')?.touched" class="erro">
+      <span *ngIf="pessoaForm.get('endereco')?.errors?.['required']">O endereco é obrigatório</span>
+      <span *ngIf="pessoaForm.get('endereco')?.errors?.['minlength']">O endereco deve ter no mínimo 3 caracteres</span>
+      <span *ngIf="pessoaForm.get('endereco')?.errors?.['maxlength']">O endereco deve ter no máximo 150 caracteres</span>
+    </div>
   </div>
-
   <div class="form-group">
     <label for="cidade">Cidade:</label>
     <input type="text" id="cidade" formControlName="cidade" required class="form-control">
+    <div *ngIf="pessoaForm.get('cidade')?.invalid && pessoaForm.get('cidade')?.touched" class="erro">
+      <span *ngIf="pessoaForm.get('cidade')?.errors?.['required']">O cidade é obrigatório</span>
+      <span *ngIf="pessoaForm.get('cidade')?.errors?.['minlength']">O cidade deve ter no mínimo 3 caracteres</span>
+      <span *ngIf="pessoaForm.get('cidade')?.errors?.['maxlength']">O cidade deve ter no máximo 100 caracteres</span>
+    </div>
   </div>
-
   <div class="form-group">
     <label for="uf">UF:</label>
-    <input type="text" id="uf" formControlName="uf" required class="form-control">
+    <input type="text" id="uf" formControlName="uf" required class="form-control" placeholder="UF">
+    <div *ngIf="pessoaForm.get('uf')?.invalid && pessoaForm.get('uf')?.touched" class="erro">
+      <span *ngIf="pessoaForm.get('uf')?.errors?.['required']">O estado (UF) é obrigatório.</span>
+      <span *ngIf="pessoaForm.get('uf')?.errors?.['minlength']">A UF deve ter 2 caracteres.</span>
+      <span *ngIf="pessoaForm.get('uf')?.errors?.['maxlength']">A UF deve ter apenas 2 caracteres.</span>
+    </div>
   </div>
 
   <button class="btn btn-primary" type="submit">Salvar</button>
+  <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+
 </form>
 <div *ngIf="pessoaIdCadastrada">
   Pessoa cadastrada com ID: {{ pessoaIdCadastrada }}

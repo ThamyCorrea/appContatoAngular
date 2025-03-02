@@ -18,34 +18,39 @@ export class EditarContatoComponent implements OnInit {
     id: number = 0;
     pessoas: Pessoa[] = [];
 
-    constructor(
-        private readonly route: ActivatedRoute,
-        private readonly router: Router,
-        private readonly contatoService: ContatoService,
-        private readonly pessoaService: PessoaService,
-        private readonly fb: FormBuilder
-    ) {
-        this.contatoForm = this.fb.group({
-            tipoContato: ['', Validators.required],
-            contato: ['', [Validators.required]],
-            pessoa: this.fb.group({
-              id: ['', Validators.required]
-            })
-        });
-    }
-
-    ngOnInit(): void {
-        const contatoIdParam = this.route.snapshot.paramMap.get('id');
-        if (contatoIdParam) {
-            this.id = Number(contatoIdParam);
-            this.carregarContato(this.id);
-        }
-
-        this.pessoaService.listarPessoas().subscribe(pessoas => {
-          this.pessoas = pessoas;
+  constructor(
+      private readonly route: ActivatedRoute,
+      private readonly router: Router,
+      private readonly contatoService: ContatoService,
+      private readonly pessoaService: PessoaService,
+      private readonly fb: FormBuilder
+  ) {
+      this.contatoForm = this.fb.group({
+          tipoContato: ['', Validators.required],
+          contato: ['', [Validators.required]],
+          pessoa: this.fb.group({
+            id: ['', Validators.required]
+          })
       });
   }
 
+  ngOnInit(): void {
+    const contatoIdParam = this.route.snapshot.paramMap.get('id');
+
+    if (contatoIdParam) {
+        this.id = Number(contatoIdParam);
+        this.carregarContato(this.id);
+    }
+
+    this.pessoaService.listarPessoas().subscribe({
+      next: (pessoas) => {
+        this.pessoas = pessoas;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar pessoas:', error);
+      }
+    });
+  }
 
   carregarContato(id: number): void {
     this.contatoService.buscarContatoPorId(id).subscribe(contato => {
@@ -56,18 +61,18 @@ export class EditarContatoComponent implements OnInit {
         });
         this.pessoaId = contato.pessoa.id;
     });
-}
+  }
 
     onSubmit(): void {
-        if (this.contatoForm.valid) {
-            const contatoAtualizado: Contato = {
-                ...this.contatoForm.value,
-                pessoa: { id: this.pessoaId }
-            };
-            this.contatoService.atualizarContato(this.id, contatoAtualizado).subscribe(() => {
-                alert('Contato atualizado com sucesso!');
-                this.router.navigate(['/contato/pessoa/', this.pessoaId]);
-            });
-        }
+      if (this.contatoForm.valid) {
+        const contatoAtualizado: Contato = {
+            ...this.contatoForm.value,
+            pessoa: { id: this.pessoaId }
+        };
+        this.contatoService.atualizarContato(this.id, contatoAtualizado).subscribe(() => {
+            alert('Contato atualizado com sucesso!');
+            this.router.navigate(['/contato/pessoa/', this.pessoaId]);
+        });
+      }
     }
 }

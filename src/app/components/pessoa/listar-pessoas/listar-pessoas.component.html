@@ -1,59 +1,60 @@
 <div class="container mt-4">
   <h2>Lista de Pessoas</h2>
   <table class="table table-striped">
-      <thead>
-          <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>CEP</th>
-              <th>Endereço</th>
-              <th>Cidade</th>
-              <th>UF</th>
-              <th>Contatos</th>
-              <th>Ações</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let pessoa of pessoas">
-              <td>{{ pessoa.id }}</td>
-              <td>{{ pessoa.nome }}</td>
-              <td>{{ pessoa.cep }}</td>
-              <td>{{ pessoa.endereco }}</td>
-              <td>{{ pessoa.cidade }}</td>
-              <td>{{ pessoa.uf }}</td>
-              <td>
-                  <button class="btn btn-sm btn-info" (click)="toggleContatos(pessoa.id)">
-                      {{ pessoa.showContatos ? 'Ocultar Contatos' : 'Ver Contatos' }}
-                  </button>
-                  <div *ngIf="pessoa.showContatos">
-                      <app-exibir-contatos [pessoaId]="pessoa.id"></app-exibir-contatos>
-                  </div>
-                  <button class="btn btn-sm btn-primary" (click)="abrirModalContatos(pessoa.id)">
-                      Ver Todos os Contatos
-                  </button>
-              </td>
-              <td>
-                  <button class="btn btn-warning btn-sm me-2" (click)="editarPessoa(pessoa.id)">Editar</button>
-                  <button class="btn btn-danger btn-sm" (click)="excluirPessoa(pessoa.id)">Excluir</button>
-              </td>
-          </tr>
-      </tbody>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>CEP</th>
+        <th>Endereço</th>
+        <th>Cidade</th>
+        <th>UF</th>
+        <th>Contatos</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pessoa of pessoas">
+        <td>{{ pessoa.id }}</td>
+        <td>{{ pessoa.nome }}</td>
+        <td>{{ pessoa.cep }}</td>
+        <td>{{ pessoa.endereco }}</td>
+        <td>{{ pessoa.cidade }}</td>
+        <td>{{ pessoa.uf }}</td>
+        <td>
+          <button class="btn btn-sm btn-info" (click)="toggleContatos(pessoa.id)">
+            <i class="bi" [ngClass]="pessoa.showContatos ? 'bi-eye-slash' : 'bi-eye'"></i>
+            {{ pessoa.showContatos ? 'Ocultar Contatos' : 'Ver Contatos' }}
+          </button>
+          <div *ngIf="pessoa.showContatos">
+            <app-exibir-contatos [pessoaId]="pessoa.id"></app-exibir-contatos>
+          </div>
+        </td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" (click)="editarPessoa(pessoa.id)">Editar
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="excluirPessoa(pessoa.id)">Excluir
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
   </table>
 </div>
-
 <div class="modal fade" id="modalContatos" tabindex="-1" aria-labelledby="modalContatosLabel" aria-hidden="true">
   <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="modalContatosLabel">Contatos</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              <app-exibir-contatos [pessoaId]="pessoaSelecionadaId"></app-exibir-contatos>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-          </div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="modalContatosLabel">Contatos</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <div class="modal-body">
+        <app-exibir-contatos [pessoaId]="pessoaSelecionadaId"></app-exibir-contatos>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
   </div>
 </div>

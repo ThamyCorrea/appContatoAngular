@@ -11,7 +11,6 @@ import { Contato } from 'src/app/models/contato.model';
 export class ListarContatosComponent implements OnInit {
     contatos: Contato[] = [];
     pessoaId!: number;
-
     constructor(
         private readonly route: ActivatedRoute,
         private readonly router: Router,
@@ -58,7 +57,7 @@ export class ListarContatosComponent implements OnInit {
     }
 
     adicionarContato(): void {
-        this.router.navigate([`/cadastrar-contato`, this.pessoaId]);
+        this.router.navigate([`/cadastrar-contato`]);
     }
 
     voltarParaListaPessoas(): void {

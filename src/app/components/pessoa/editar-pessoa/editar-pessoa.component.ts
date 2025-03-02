@@ -14,7 +14,6 @@ export class EditarPessoaComponent implements OnInit {
   pessoaForm: FormGroup;
   id: number;
 
-
   constructor(
     private readonly fb: FormBuilder,
     private readonly pessoaService: PessoaService,
@@ -24,11 +23,11 @@ export class EditarPessoaComponent implements OnInit {
   ) {
     this.id = 0;
     this.pessoaForm = this.fb.group({
-      nome: ['', Validators.required],
+      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       cep: ['', [Validators.required, Validators.pattern(/^\d{5}-\d{3}$/)]],
-      endereco: ['', Validators.required],
-      cidade: ['', Validators.required],
-      uf: ['', Validators.required]
+      endereco: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(150)]],
+      cidade: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      uf: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]]
     });
   }
 
@@ -61,8 +60,6 @@ export class EditarPessoaComponent implements OnInit {
       console.warn('Formulário inválido! Verifique os campos.');
     }
   }
-
-
 
   buscarEnderecoPorCep() {
     const cep = this.pessoaForm.get('cep')?.value;
